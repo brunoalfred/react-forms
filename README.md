@@ -1,9 +1,9 @@
-# React + TypeScript + Vite
+## React + TypeScript + Vite
 
 Learning [React Form](https://react-hook-form.com/)
 
 
-## Project setup
+### Project setup
 
 Install deps and run the app, then navigate to provided link
 ```sh

@@ -1,32 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {SubmitHandler, useForm} from "react-hook-form";
+
+type Task = {
+    task: string,
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+    // const [todos, setTodo] = useState<string>([])
 
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+    } = useForm<Task>()
+    const onSubmit: SubmitHandler<Task> = (data: Task) => console.log(data)
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+        <h1>React Form</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+          <div style={{
+              color: 'red',
+              fontSize: '15px',
+              marginBottom: '10px',
+              marginLeft: '10px',
+              marginTop: '10px',
+              textAlign: 'left',
+              width: '400px',
+          }}>
+              {errors.task && <span>This field is required</span>}
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <input type="text"
+                     {...register("task", {required: true})}
+                     defaultValue="Something to Accomplish"
+                     style={{height: '40px', width: '400px', paddingLeft: '10px'}}
+                     placeholder="Add a todo"/>
+              <button type="submit"
+                      style={{backgroundColor: 'green', color: 'white', marginLeft: '20px', width: '150px'}}>Add
+              </button>
+          </form>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Visit react-hook-form.com to learn more about React Hook Form!
       </p>
     </>
   )
